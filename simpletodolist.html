@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+
+        <title>Simple To-Do List</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" type="text/css" href="./simpletodostyle.css" />
+
+    </head>
+
+    <body>
+
+        <nav>
+
+            <h1>Simple To-Do List</h1>
+
+        </nav>
+
+        <main>
+
+            <section id="formContainer">
+
+                <h2>The Form</h2>
+
+                <form>
+
+                    <fieldset>
+
+                        <legend>
+                            Add a task:
+                        </legend>
+
+                        <textarea id="txtTask" name="txtTask">Enter task here</textarea>
+
+                    </fieldset>
+
+                    <fieldset id="priorityContainer">
+
+                        <legend>
+                            Set the Task Priority:
+                        </legend>
+
+                        <label for="rdoLowPriority">Low Priority:</label>
+                        <input type="radio" name="rdoPriority" id="rdoLowPriority" checked="true" value="lowPriority" />
+
+                        <label for="rdoMediumPriority">Medium Priority:</label>
+                        <input type="radio" name="rdoPriority" id="rdoMediumPriority" value="mediumPriority" />
+
+                        <label for="rdoHighPriority">High Priority:</label>
+                        <input type="radio" name="rdoPriority" id="rdoHighPriority" value="highPriority" />
+
+                    </fieldset>
+
+                    <div id="formButtons">
+                        <input type="submit" name="btnSubmit" id="btnSubmit" value="+" />
+                    </div>
+
+                </form>
+                
+            </section>
+
+            <section id="taskDisplay">
+
+                <h2>Your Tasks</h2>
+
+                <!--  The search filter  -->
+                <section id="sortControl">
+
+                    <label for="drpFilter">Sort by:</label>
+
+                    <select id="drpFilter">
+                        <option value="all">All</option>
+                        <option value="inProgress">By Incomplete</option>
+                        <option value="complete">By Complete</option>
+                        <option value="lowHigh">By Priority (Low to High)</option>
+                        <option value="highLow">By Priority (High to Low)</option>
+                    </select>
+
+                </section>
+
+                <div id="tasksList">
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <p>2026</p>
+        </footer>
+
+        <script src="./simpletodolistlogic.js"></script>
+
+    </body>
+
+</html>
