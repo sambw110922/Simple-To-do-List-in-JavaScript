@@ -44,6 +44,75 @@ function RefreshList(){
      DisplayTasks();
 }
 
+//  This is the function for the Update Task button.
+function UpdateTask(taskId){
+
+    if(document.getElementById("txtContentUpdate" + taskId)){
+                
+        let txtContentUpdate = document.getElementById("txtContentUpdate" + taskId).value;
+        let drpPriority = document.getElementById("drpPriority" + taskId).value;
+
+        if(txtContentUpdate.length > min_text && txtContentUpdate.length < max_text){
+
+            for(let i = 0; i < taskList.length; i++){
+
+                if(taskId == taskList[i].taskId){
+
+                    taskList[i].taskContent = txtContentUpdate;
+                    taskList[i].taskPriority = drpPriority;
+
+                    break;
+                }
+
+            } 
+
+            RefreshList();
+
+        } else {
+            window.alert("Please use the minimum length (0) and the maximum length (200).");
+        }
+
+    }
+
+}
+
+//  This is the function for the COMPLETE TASK ITEM button.
+function TaskItemComplete(taskId){
+
+    for(let i = 0; i < taskList.length; i++){
+
+        if(taskId == taskList[i].taskId){
+             taskList[i].taskStatus = true;
+            break;
+        }
+
+    }
+
+    RefreshList();
+}
+
+//  This is the function for the DELETE TASK ITEM button.
+function DeleteTask(taskId){
+    
+    for(let i = 0; i < taskList.length; i++){
+
+        if(taskId == taskList[i].taskId){
+            taskList.splice(i, 1);
+            break;
+        }
+
+    }
+
+    //  Because there was a bug when deleting items and edits, I need to update the 
+    //  ids of all tasks in the list..
+    for(let i = 0; i < taskList.length; i++){
+        taskList[i].taskId = "ti" + i;
+    }
+
+    RefreshList();
+
+}
+
 //  Creates the HTML.
 function GenerateTaskHTML(task){
 
@@ -95,18 +164,7 @@ function GenerateTaskHTML(task){
 
     //  The event listener for the complete button.
     btnComplete.addEventListener("click", function(){
-
-        for(let i = 0; i < taskList.length; i++){
-
-            if(this.dataset.taskId == taskList[i].taskId){
-                taskList[i].taskStatus = true;
-                break;
-            }
-
-        }
-
-        RefreshList();
-
+        TaskItemComplete(this.dataset.taskId);
     });
 
     //  This is the delete button.
@@ -118,18 +176,7 @@ function GenerateTaskHTML(task){
 
     //  The event listener for the delete button.
     btnDelete.addEventListener("click", function(){
-
-        for(let i = 0; i < taskList.length; i++){
-
-            if(this.dataset.taskId == taskList[i].taskId){
-                taskList.splice(i, 1);
-                break;
-            }
-
-        }
-
-        RefreshList();
-
+        DeleteTask(this.dataset.taskId);
     });
 
     //  The edit button.
@@ -147,8 +194,6 @@ function GenerateTaskHTML(task){
 
         //  Creates the form.
         let editForm = document.createElement("form");
-
-        //  =====================================
         
         //  Creates the content field.
         let fieldsetContent = document.createElement("fieldset");
@@ -162,8 +207,6 @@ function GenerateTaskHTML(task){
 
         fieldsetContent.appendChild(labelContent);
         fieldsetContent.appendChild(txtContent);
-
-        //  =========================================
 
         //  Creates the priority field.
         let fieldsetPriority = document.createElement("fieldset");
@@ -193,8 +236,6 @@ function GenerateTaskHTML(task){
         fieldsetPriority.appendChild(labelPriority);
         fieldsetPriority.append(drpPriority);
 
-        //  ======================================
-
         //  Saves the changes.
         let btnSaveChanges = document.createElement("button");
         btnSaveChanges.textContent = "Save";
@@ -204,34 +245,7 @@ function GenerateTaskHTML(task){
 
         //  The click event for the save button.
         btnSaveChanges.addEventListener("click", function(){
-            
-            if(document.getElementById("txtContentUpdate" + this.dataset.taskId)){
-                
-                let txtContentUpdate = document.getElementById("txtContentUpdate" + this.dataset.taskId).value;
-                let drpPriority = document.getElementById("drpPriority" + this.dataset.taskId).value;
-
-                if(txtContentUpdate.length > min_text && txtContentUpdate.length < max_text){
-
-                    for(let i = 0; i < taskList.length; i++){
-
-                        if(this.dataset.taskId == taskList[i].taskId){
-
-                            taskList[i].taskContent = txtContentUpdate;
-                            taskList[i].taskPriority = drpPriority;
-
-                            break;
-                        }
-
-                    } 
-
-                    RefreshList();
-
-                } else {
-                    window.alert("Please use the minimum length (0) and the maximum length (200).");
-                }
-
-            }
-
+            UpdateTask(this.dataset.taskId);
         });
 
         //  Cancels the changes.
@@ -245,8 +259,6 @@ function GenerateTaskHTML(task){
         btnCancelChanges.addEventListener("click", function(){
             RefreshList();
         });
-
-        //  ======================================
 
         editFormRoot.appendChild(fieldsetContent);
         editFormRoot.appendChild(fieldsetPriority);
@@ -362,7 +374,7 @@ function startTodo(){
     );
 
     var dummyTask3 = new TaskItem(
-        "ti3",
+        "ti2",
         "Dummy Task 3",
         highPriority,
         true
@@ -389,7 +401,6 @@ function startTodo(){
 
     });
 
-    //  todo: add the sort.
 
     //  Sort by high priority.
     document.getElementById("btnHighLow").addEventListener("click", function(){
