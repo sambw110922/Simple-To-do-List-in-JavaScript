@@ -45,7 +45,7 @@ function RefreshList(){
 }
 
 //  This is the function for the Update Task button.
-function UpdateTask(taskId){
+function TaskItemUpdate(taskId){
 
     if(document.getElementById("txtContentUpdate" + taskId)){
                 
@@ -92,7 +92,7 @@ function TaskItemComplete(taskId){
 }
 
 //  This is the function for the DELETE TASK ITEM button.
-function DeleteTask(taskId){
+function TaskItemDelete(taskId){
     
     for(let i = 0; i < taskList.length; i++){
 
@@ -176,7 +176,7 @@ function GenerateTaskHTML(task){
 
     //  The event listener for the delete button.
     btnDelete.addEventListener("click", function(){
-        DeleteTask(this.dataset.taskId);
+        TaskItemDelete(this.dataset.taskId);
     });
 
     //  The edit button.
@@ -245,7 +245,7 @@ function GenerateTaskHTML(task){
 
         //  The click event for the save button.
         btnSaveChanges.addEventListener("click", function(){
-            UpdateTask(this.dataset.taskId);
+            TaskItemUpdate(this.dataset.taskId);
         });
 
         //  Cancels the changes.
