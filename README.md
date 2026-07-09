@@ -6,8 +6,8 @@ This project is the front-end for a simple to-do list using HTML, JavaScript and
 Included
 
 1. simpletodolist.html – the HTML page for the project.
-2. simpletodolistlogic.js – the JavaScript for the project.
-4. simpletodostyle.css – the CSS for the project.
+2. todolist_js.js – the JavaScript for the project.
+4. todolist_style.css – the CSS for the project.
 
 Instructions
 
